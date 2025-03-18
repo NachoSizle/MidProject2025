@@ -13,7 +13,7 @@ const db = {
 };
 
 // Cargar base de datos en memoria en JSON Server
-const router = jsonServer.router(db);
+const router = jsonServer.router({ ...db });
 
 app.use(middlewares);
 app.use(router);
