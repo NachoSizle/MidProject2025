@@ -1,5 +1,4 @@
 [build]
-  command = "npm install"  # Instala dependencias
   functions = "functions"  # Directorio de funciones
 
 [[redirects]]
