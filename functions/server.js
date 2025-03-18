@@ -1,5 +1,4 @@
 const https = require("https");
-const path = require("path");
 
 // Ruta de la URL pública donde está alojado db.json
 const dbUrl = "https://mid-project-nacho.netlify.app/public/db.json";
@@ -29,9 +28,23 @@ const readData = () => {
 
 // Función para obtener los datos desde localStorage
 const loadDataFromLocalStorage = async () => {
-  const projectsOnJSON = await readData();
-  const data = projectsOnJSON || localStorage.getItem("projects");
-  return data ? JSON.parse(data) : { projects: [] }; // Si no hay datos, se inicializa con un array vacío
+  try {
+    // Si no hay datos en localStorage, obtén los datos de db.json
+    const projectsOnJSON = await readData();
+    saveDataToLocalStorage(projectsOnJSON); // Guarda los datos en localStorage
+    return projectsOnJSON; // Retorna los datos obtenidos de db.json
+
+    // Intenta cargar los datos desde localStorage
+    const localStorageData = localStorage.getItem("projects");
+
+    // Si hay datos, intenta parsearlos
+    if (localStorageData) {
+      return JSON.parse(localStorageData); // Si los datos son JSON válidos, los devuelve
+    }
+  } catch (error) {
+    console.error("Error al cargar los datos:", error);
+    return { projects: [] }; // Retorna un array vacío en caso de error
+  }
 };
 
 // Función para guardar los datos en localStorage
