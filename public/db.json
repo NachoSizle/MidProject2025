@@ -1,7 +1,7 @@
 {
   "projects": [
     {
-      "uuid": "4",
+      "uuid": 4,
       "name": "Lorem ipsum",
       "description": "Lorem ipsum",
       "content":
@@ -11,7 +11,7 @@
       "completed_on": "June 10, 2021"
     },
     {
-      "uuid": "3",
+      "uuid": 3,
       "name": "Vectorify",
       "description": "User Experience Design",
       "content":
@@ -21,7 +21,7 @@
       "completed_on": "June 10, 2021"
     },
     {
-      "uuid": "2",
+      "uuid": 2,
       "name": "Dashcoin",
       "description": "Web Development",
       "content":
@@ -31,7 +31,7 @@
       "completed_on": "June 10, 2021"
     },
     {
-      "uuid": "1",
+      "uuid": 1,
       "name": "Simplify",
       "description": "UI Design & App Development",
       "content":
