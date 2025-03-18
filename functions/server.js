@@ -2,7 +2,7 @@ const https = require("https");
 const path = require("path");
 
 // Ruta de la URL pública donde está alojado db.json
-const dbUrl = "https://mid-project-nacho.netlify.app.netlify.app/db.json";
+const dbUrl = "https://mid-project-nacho.netlify.app/db.json";
 
 // Función para obtener los datos desde db.json
 const readData = () => {
