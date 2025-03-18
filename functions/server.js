@@ -2,11 +2,18 @@ const fs = require("fs");
 const path = require("path");
 
 // Ruta del archivo JSON existente
-const dbPath = path.join(__dirname, "./db.json");
+const dbPath = path.join(__dirname, "/db.json");
 
 // Leer los datos desde db.json
 const readData = () => {
   try {
+    if (!fs.existsSync(dbPath)) {
+      // Si el archivo no existe, crear uno nuevo con una estructura básica
+      const initialData = { projects: [] };
+      fs.writeFileSync(dbPath, JSON.stringify(initialData, null, 2)); // Crear el archivo db.json
+      return initialData;
+    }
+
     const data = fs.readFileSync(dbPath, "utf8");
     return JSON.parse(data);
   } catch (err) {
