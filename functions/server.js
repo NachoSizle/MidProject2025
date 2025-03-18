@@ -8,27 +8,37 @@ const router = jsonServer.router({
 });
 const middlewares = jsonServer.defaults();
 
+// Asegurarse de que el servidor sirva las rutas correctas
 server.use(middlewares);
-
-// Asegúrate de que la función de Netlify maneje correctamente la respuesta
 server.use("/api", router);
 
 module.exports.handler = async (event, context) => {
   return new Promise((resolve, reject) => {
-    // Crear un servidor en memoria y redirigir las peticiones
+    // Aquí usamos el método .handle para procesar la solicitud
     server.handle(event, context, (err, response) => {
       if (err) {
-        return reject(err);
+        console.error("Error al manejar la solicitud:", err);
+        return reject({
+          statusCode: 500,
+          body: JSON.stringify({ message: "Error en el servidor" }),
+        });
       }
 
-      // Asegúrate de que la respuesta sea un objeto JSON adecuado
-      return resolve({
-        statusCode: response.statusCode,
-        body: JSON.stringify(response.body),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      // Asegúrate de que la respuesta esté correctamente formada
+      if (response) {
+        return resolve({
+          statusCode: response.statusCode || 200,
+          body: JSON.stringify(response.body),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } else {
+        return reject({
+          statusCode: 404,
+          body: JSON.stringify({ message: "No se encontró la respuesta" }),
+        });
+      }
     });
   });
 };
