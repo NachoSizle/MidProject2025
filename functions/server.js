@@ -65,7 +65,9 @@ module.exports.handler = async (event) => {
     if (parts[2] === "projects") {
       if (parts[3]) {
         // Si se proporciona un id, devolver el proyecto específico
-        const project = data.projects.find((p) => p.id === parseInt(parts[3]));
+        const project = data.projects.find(
+          (p) => parseInt(p.id) === parseInt(parts[3])
+        );
         if (project) {
           return {
             statusCode: 200,
@@ -101,7 +103,7 @@ module.exports.handler = async (event) => {
     // PUT a "/projects/{id}" para actualizar un proyecto existente
     const updatedProject = JSON.parse(event.body);
     const projectIndex = data.projects.findIndex(
-      (p) => p.id === parseInt(parts[3])
+      (p) => parseInt(p.id) === parseInt(parts[3])
     );
 
     if (projectIndex !== -1) {
@@ -124,7 +126,7 @@ module.exports.handler = async (event) => {
   } else if (httpMethod === "DELETE" && parts[2] === "projects" && parts[3]) {
     // DELETE a "/projects/{id}" para eliminar un proyecto
     const projectIndex = data.projects.findIndex(
-      (p) => p.id === parseInt(parts[3])
+      (p) => parseInt(p.id) === parseInt(parts[3])
     );
 
     if (projectIndex !== -1) {
