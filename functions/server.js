@@ -55,7 +55,7 @@ module.exports.handler = (event) => {
 
   if (httpMethod === "GET" && entity === "projects") {
     if (id) {
-      const project = data.projects.find((p) => p.id === parseInt(id));
+      const project = DEFAULT_DATA.projects.find((p) => p.id === parseInt(id));
       return project
         ? { statusCode: 200, body: JSON.stringify(project) }
         : {
@@ -66,7 +66,10 @@ module.exports.handler = (event) => {
 
     console.log("GET projects");
     console.log(DEFAULT_DATA.projects);
-    return { statusCode: 200, body: JSON.stringify(DEFAULT_DATA.projects) };
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ ...DEFAULT_DATA.projects }),
+    };
   }
 
   if (httpMethod === "POST" && entity === "projects") {
