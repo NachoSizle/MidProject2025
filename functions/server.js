@@ -28,21 +28,19 @@ const readData = () => {
 };
 
 // Función para obtener los datos desde localStorage
-const loadDataFromLocalStorage = async () => {
+const loadData = async () => {
   try {
-    // Si no hay datos en localStorage, obtén los datos de db.json
-    const projectsOnJSON = await readData();
-    if (projectsOnJSON) {
-      saveData(projectsOnJSON); // Guarda los datos en localStorage
-      console.log("Datos cargados desde db.json");
-      console.log(projectsOnJSON);
-      return projectsOnJSON; // Retorna los datos obtenidos de db.json
+    if (!projects) {
+      const projectsOnJSON = await readData();
+      if (projectsOnJSON) {
+        saveData(projectsOnJSON);
+        console.log("Datos cargados desde db.json");
+        console.log(projectsOnJSON);
+        return projectsOnJSON;
+      }
     }
 
-    // Si hay datos, intenta parsearlos
-    if (projects) {
-      return JSON.parse(projects); // Si los datos son JSON válidos, los devuelve
-    }
+    return JSON.parse(projects);
   } catch (error) {
     console.error("Error al cargar los datos:", error);
     return { projects: [] }; // Retorna un array vacío en caso de error
@@ -60,7 +58,7 @@ module.exports.handler = async (event) => {
   const parts = path.split("/"); // Separar las partes de la URL (ej. /api/projects/1)
 
   // Leer datos desde localStorage
-  let data = loadDataFromLocalStorage();
+  let data = loadData();
 
   if (httpMethod === "GET") {
     // GET a "/projects" o "/projects/{id}"
@@ -79,6 +77,7 @@ module.exports.handler = async (event) => {
           body: JSON.stringify({ message: "Project not found" }),
         };
       } else {
+        console.log(data.projects);
         // Si no se proporciona un id, devolver todos los proyectos
         return {
           statusCode: 200,
