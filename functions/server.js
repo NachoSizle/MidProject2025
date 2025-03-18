@@ -1,4 +1,3 @@
-const serverless = require("serverless-http");
 const jsonServer = require("json-server");
 
 const app = jsonServer.create();
@@ -23,4 +22,4 @@ console.log(
   JSON.stringify(router.db.getState(), null, 2)
 );
 
-module.exports.handler = serverless(app);
+module.exports.handler = app;
