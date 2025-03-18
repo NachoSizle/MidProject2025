@@ -45,7 +45,7 @@ let DEFAULT_DATA = {
 
 // Cargar los proyectos desde db.json o localStorage
 const loadData = () => {
-  if (DEFAULT_DATA) return JSON.parse(DEFAULT_DATA);
+  if (DEFAULT_DATA) return DEFAULT_DATA;
   return [];
 };
 
