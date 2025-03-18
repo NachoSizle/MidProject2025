@@ -43,11 +43,6 @@ let DEFAULT_DATA = {
   ],
 };
 
-// Cargar los proyectos desde db.json o localStorage
-const loadData = () => {
-  return DEFAULT_DATA || { projects: [] };
-};
-
 // Guardar los datos en localStorage
 const saveData = (data) => {
   DEFAULT_DATA = data;
@@ -57,8 +52,6 @@ const saveData = (data) => {
 module.exports.handler = (event) => {
   const { path, httpMethod } = event;
   const [_, __, entity, id] = path.split("/");
-
-  let data = loadData();
 
   if (httpMethod === "GET" && entity === "projects") {
     if (id) {
@@ -70,30 +63,35 @@ module.exports.handler = (event) => {
             body: JSON.stringify({ message: "Project not found" }),
           };
     }
-    return { statusCode: 200, body: JSON.stringify(data.projects) };
+
+    console.log("GET projects");
+    console.log(DEFAULT_DATA.projects);
+    return { statusCode: 200, body: JSON.stringify(DEFAULT_DATA.projects) };
   }
 
   if (httpMethod === "POST" && entity === "projects") {
     const newProject = JSON.parse(event.body);
-    newProject.id = data.projects.length + 1;
-    data.projects.push(newProject);
-    saveData(data);
+    newProject.id = DEFAULT_DATA.projects.length + 1;
+    DEFAULT_DATA.projects.push(newProject);
+    saveData(DEFAULT_DATA);
     return { statusCode: 201, body: JSON.stringify(newProject) };
   }
 
   if (httpMethod === "PUT" && entity === "projects" && id) {
     const updatedProject = JSON.parse(event.body);
-    const projectIndex = data.projects.findIndex((p) => p.id === parseInt(id));
+    const projectIndex = DEFAULT_DATA.projects.findIndex(
+      (p) => p.id === parseInt(id)
+    );
 
     if (projectIndex !== -1) {
-      data.projects[projectIndex] = {
-        ...data.projects[projectIndex],
+      DEFAULT_DATA.projects[projectIndex] = {
+        ...DEFAULT_DATA.projects[projectIndex],
         ...updatedProject,
       };
-      saveData(data);
+      saveData(DEFAULT_DATA);
       return {
         statusCode: 200,
-        body: JSON.stringify(data.projects[projectIndex]),
+        body: JSON.stringify(DEFAULT_DATA.projects[projectIndex]),
       };
     }
     return {
@@ -103,11 +101,13 @@ module.exports.handler = (event) => {
   }
 
   if (httpMethod === "DELETE" && entity === "projects" && id) {
-    const projectIndex = data.projects.findIndex((p) => p.id === parseInt(id));
+    const projectIndex = DEFAULT_DATA.projects.findIndex(
+      (p) => p.id === parseInt(id)
+    );
 
     if (projectIndex !== -1) {
-      const deletedProject = data.projects.splice(projectIndex, 1);
-      saveData(data);
+      const deletedProject = DEFAULT_DATA.projects.splice(projectIndex, 1);
+      saveData(DEFAULT_DATA);
       return { statusCode: 200, body: JSON.stringify(deletedProject) };
     }
     return {
