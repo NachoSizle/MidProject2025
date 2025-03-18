@@ -55,18 +55,18 @@ const saveData = (data) => {
 // Función para manejar las solicitudes
 module.exports.handler = async (event) => {
   const { path, httpMethod } = event;
-  const parts = path.split("/"); // Separar las partes de la URL (ej. /api/projects/1)
+  const [, , entity, uuid] = path.split("/"); // Separar las partes de la URL (ej. /api/projects/1)
 
   // Leer datos desde localStorage
   let data = await loadData();
 
   if (httpMethod === "GET") {
-    // GET a "/projects" o "/projects/{id}"
-    if (parts[2] === "projects") {
-      if (parts[3]) {
-        // Si se proporciona un id, devolver el proyecto específico
+    // GET a "/projects" o "/projects/{uuid}"
+    if (entity === "projects") {
+      if (uuid) {
+        // Si se proporciona un uuid, devolver el proyecto específico
         const project = data.projects.find(
-          (p) => parseInt(p.id) === parseInt(parts[3])
+          (p) => parseInt(p.uuid) === parseInt(uuid)
         );
         if (project) {
           return {
@@ -81,17 +81,17 @@ module.exports.handler = async (event) => {
       } else {
         console.log("GET /projects");
         console.log(data);
-        // Si no se proporciona un id, devolver todos los proyectos
+        // Si no se proporciona un uuid, devolver todos los proyectos
         return {
           statusCode: 200,
           body: JSON.stringify(data.projects),
         };
       }
     }
-  } else if (httpMethod === "POST" && parts[2] === "projects") {
+  } else if (httpMethod === "POST" && entity === "projects") {
     // POST a "/projects" para agregar un nuevo proyecto
     const newProject = JSON.parse(event.body);
-    newProject.id = data.projects.length + 1; // Generar un nuevo ID
+    newProject.uuid = data.projects.length + 1; // Generar un nuevo ID
     data.projects.push(newProject);
     saveData(data); // Guardar en localStorage
 
@@ -99,11 +99,11 @@ module.exports.handler = async (event) => {
       statusCode: 201,
       body: JSON.stringify(newProject),
     };
-  } else if (httpMethod === "PUT" && parts[2] === "projects" && parts[3]) {
-    // PUT a "/projects/{id}" para actualizar un proyecto existente
+  } else if (httpMethod === "PUT" && entity === "projects" && uuid) {
+    // PUT a "/projects/{uuid}" para actualizar un proyecto existente
     const updatedProject = JSON.parse(event.body);
     const projectIndex = data.projects.findIndex(
-      (p) => parseInt(p.id) === parseInt(parts[3])
+      (p) => parseInt(p.uuid) === parseInt(uuid)
     );
 
     if (projectIndex !== -1) {
@@ -123,10 +123,10 @@ module.exports.handler = async (event) => {
       statusCode: 404,
       body: JSON.stringify({ message: "Project not found" }),
     };
-  } else if (httpMethod === "DELETE" && parts[2] === "projects" && parts[3]) {
-    // DELETE a "/projects/{id}" para eliminar un proyecto
+  } else if (httpMethod === "DELETE" && entity === "projects" && uuid) {
+    // DELETE a "/projects/{uuid}" para eliminar un proyecto
     const projectIndex = data.projects.findIndex(
-      (p) => parseInt(p.id) === parseInt(parts[3])
+      (p) => parseInt(p.uuid) === parseInt(uuid)
     );
 
     if (projectIndex !== -1) {
