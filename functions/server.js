@@ -18,4 +18,9 @@ const router = jsonServer.router(db);
 app.use(middlewares);
 app.use(router);
 
+console.log(
+  "✅ JSON Server iniciado con los siguientes datos:",
+  JSON.stringify(db, null, 2)
+);
+
 module.exports.handler = serverless(app);
