@@ -33,6 +33,8 @@ const loadDataFromLocalStorage = async () => {
     const projectsOnJSON = await readData();
     if (projectsOnJSON) {
       saveDataToLocalStorage(projectsOnJSON); // Guarda los datos en localStorage
+      console.log("Datos cargados desde db.json");
+      console.log(projectsOnJSON);
       return projectsOnJSON; // Retorna los datos obtenidos de db.json
     }
 
