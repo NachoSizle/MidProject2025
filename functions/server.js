@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-// Ruta del archivo JSON
+// Ruta del archivo JSON existente
 const dbPath = path.join(__dirname, "./db.json");
 
 // Leer los datos desde db.json
@@ -10,7 +10,8 @@ const readData = () => {
     const data = fs.readFileSync(dbPath, "utf8");
     return JSON.parse(data);
   } catch (err) {
-    return { projects: [] }; // Retorna una base vacía si no existe el archivo
+    console.error("Error al leer db.json", err);
+    return { projects: [] }; // Si ocurre un error, devuelve una base vacía
   }
 };
 
