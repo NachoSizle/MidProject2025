@@ -1,28 +1,11 @@
-const serverless = require("serverless-http");
-const cors = require("cors");
-const jsonServer = require("json-server");
+const jsonServerless = require("json-serverless");
 
-const app = jsonServer.create();
-const middlewares = jsonServer.defaults();
-
-// Base de datos en memoria (carga estática)
-const db = {
+// Definir tus datos en memoria (puedes usar un archivo JSON también)
+const data = {
   projects: [
     { id: 1, name: "Proyecto 1" },
     { id: 2, name: "Proyecto 2" },
   ],
 };
 
-// Cargar base de datos en memoria en JSON Server
-const router = jsonServer.router({ ...db });
-
-app.use(middlewares);
-app.use(router);
-app.use(cors());
-
-console.log(
-  "✅ JSON Server iniciado con los siguientes datos:",
-  JSON.stringify(router.db.getState(), null, 2)
-);
-
-module.exports.handler = serverless(app);
+module.exports.handler = jsonServerless(data);
