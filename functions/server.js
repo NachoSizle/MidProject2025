@@ -45,13 +45,12 @@ let DEFAULT_DATA = {
 
 // Cargar los proyectos desde db.json o localStorage
 const loadData = () => {
-  if (DEFAULT_DATA) return DEFAULT_DATA;
-  return [];
+  return DEFAULT_DATA || { projects: [] };
 };
 
 // Guardar los datos en localStorage
 const saveData = (data) => {
-  DEFAULT_DATA = JSON.stringify(data);
+  DEFAULT_DATA = data;
 };
 
 // Función principal para manejar las solicitudes
