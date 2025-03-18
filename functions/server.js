@@ -1,4 +1,5 @@
 const serverless = require("serverless-http");
+const cors = require("cors");
 const jsonServer = require("json-server");
 
 const app = jsonServer.create();
@@ -17,6 +18,7 @@ const router = jsonServer.router({ ...db });
 
 app.use(middlewares);
 app.use(router);
+app.use(cors());
 
 console.log(
   "✅ JSON Server iniciado con los siguientes datos:",
