@@ -1,4 +1,5 @@
 const https = require("https");
+let projects = null;
 
 // Ruta de la URL pública donde está alojado db.json
 const dbUrl = "https://mid-project-nacho.netlify.app/public/db.json";
@@ -32,18 +33,15 @@ const loadDataFromLocalStorage = async () => {
     // Si no hay datos en localStorage, obtén los datos de db.json
     const projectsOnJSON = await readData();
     if (projectsOnJSON) {
-      saveDataToLocalStorage(projectsOnJSON); // Guarda los datos en localStorage
+      saveData(projectsOnJSON); // Guarda los datos en localStorage
       console.log("Datos cargados desde db.json");
       console.log(projectsOnJSON);
       return projectsOnJSON; // Retorna los datos obtenidos de db.json
     }
 
-    // Intenta cargar los datos desde localStorage
-    const localStorageData = localStorage.getItem("projects");
-
     // Si hay datos, intenta parsearlos
-    if (localStorageData) {
-      return JSON.parse(localStorageData); // Si los datos son JSON válidos, los devuelve
+    if (projects) {
+      return JSON.parse(projects); // Si los datos son JSON válidos, los devuelve
     }
   } catch (error) {
     console.error("Error al cargar los datos:", error);
@@ -52,8 +50,8 @@ const loadDataFromLocalStorage = async () => {
 };
 
 // Función para guardar los datos en localStorage
-const saveDataToLocalStorage = (data) => {
-  localStorage.setItem("projects", JSON.stringify(data));
+const saveData = (data) => {
+  projects = JSON.stringify(data);
 };
 
 // Función para manejar las solicitudes
@@ -93,7 +91,7 @@ module.exports.handler = async (event) => {
     const newProject = JSON.parse(event.body);
     newProject.id = data.projects.length + 1; // Generar un nuevo ID
     data.projects.push(newProject);
-    saveDataToLocalStorage(data); // Guardar en localStorage
+    saveData(data); // Guardar en localStorage
 
     return {
       statusCode: 201,
@@ -111,7 +109,7 @@ module.exports.handler = async (event) => {
         ...data.projects[projectIndex],
         ...updatedProject,
       };
-      saveDataToLocalStorage(data); // Guardar en localStorage
+      saveData(data); // Guardar en localStorage
 
       return {
         statusCode: 200,
@@ -131,7 +129,7 @@ module.exports.handler = async (event) => {
 
     if (projectIndex !== -1) {
       const deletedProject = data.projects.splice(projectIndex, 1);
-      saveDataToLocalStorage(data); // Guardar en localStorage
+      saveData(data); // Guardar en localStorage
 
       return {
         statusCode: 200,
