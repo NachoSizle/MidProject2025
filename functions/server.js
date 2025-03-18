@@ -1,53 +1,65 @@
-const https = require("https");
-
-let projects = null;
-const dbUrl = "https://mid-project-nacho.netlify.app/public/db.json";
-
-// Cargar los proyectos desde db.json o localStorage
-const loadData = async () => {
-  if (projects) return JSON.parse(projects);
-
-  try {
-    const data = await readData();
-    saveData(data);
-    console.log("Datos cargados desde db.json");
-    return data;
-  } catch (error) {
-    console.error("Error al cargar los datos:", error);
-    return { projects: [] };
-  }
+let DEFAULT_DATA = {
+  projects: [
+    {
+      uuid: "4",
+      name: "Lorem ipsum",
+      description: "Lorem ipsum",
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      image:
+        "https://github.com/ironhack-jc/mid-term-api/blob/main/4.jpg?raw=true",
+      completed_on: "June 10, 2021",
+    },
+    {
+      uuid: "3",
+      name: "Vectorify",
+      description: "User Experience Design",
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      image:
+        "https://github.com/ironhack-jc/mid-term-api/blob/main/3.jpg?raw=true",
+      completed_on: "June 10, 2021",
+    },
+    {
+      uuid: "2",
+      name: "Dashcoin",
+      description: "Web Development",
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      image:
+        "https://github.com/ironhack-jc/mid-term-api/blob/main/2.jpg?raw=true",
+      completed_on: "June 10, 2021",
+    },
+    {
+      uuid: "1",
+      name: "Simplify",
+      description: "UI Design & App Development",
+      content:
+        "Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et! Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi. Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi.Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt quix duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi.<br><br>Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi.Aliqua id fugiat nostrud irure ex duis ea quis id quis ad e dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi.Aliqua id fugiat nostrud irure ex duis ea quis id quis ad e dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nis cillum minim tempor enim.",
+      image:
+        "https://github.com/ironhack-jc/mid-term-api/blob/main/1.jpg?raw=true",
+      completed_on: "June 22, 2021",
+    },
+  ],
 };
 
-// Leer los datos desde db.json
-const readData = () => {
-  return new Promise((resolve, reject) => {
-    https
-      .get(dbUrl, (response) => {
-        let data = "";
-        response.on("data", (chunk) => (data += chunk));
-        response.on("end", () => {
-          try {
-            resolve(JSON.parse(data));
-          } catch (err) {
-            reject("Error al parsear los datos JSON");
-          }
-        });
-      })
-      .on("error", (err) => reject(`Error: ${err.message}`));
-  });
+// Cargar los proyectos desde db.json o localStorage
+const loadData = () => {
+  if (DEFAULT_DATA) return JSON.parse(DEFAULT_DATA);
+  return [];
 };
 
 // Guardar los datos en localStorage
 const saveData = (data) => {
-  projects = JSON.stringify(data);
+  DEFAULT_DATA = JSON.stringify(data);
 };
 
 // Función principal para manejar las solicitudes
-module.exports.handler = async (event) => {
+module.exports.handler = (event) => {
   const { path, httpMethod } = event;
   const [_, __, entity, id] = path.split("/");
 
-  let data = await loadData();
+  let data = loadData();
 
   if (httpMethod === "GET" && entity === "projects") {
     if (id) {
