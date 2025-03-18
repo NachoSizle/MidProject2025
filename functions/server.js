@@ -77,7 +77,8 @@ module.exports.handler = async (event) => {
           body: JSON.stringify({ message: "Project not found" }),
         };
       } else {
-        console.log(data.projects);
+        console.log("GET /projects");
+        console.log(data);
         // Si no se proporciona un id, devolver todos los proyectos
         return {
           statusCode: 200,
