@@ -58,7 +58,7 @@ module.exports.handler = async (event) => {
   const parts = path.split("/"); // Separar las partes de la URL (ej. /api/projects/1)
 
   // Leer datos desde localStorage
-  let data = loadData();
+  let data = await loadData();
 
   if (httpMethod === "GET") {
     // GET a "/projects" o "/projects/{id}"
