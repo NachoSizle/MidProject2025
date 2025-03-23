@@ -84,7 +84,7 @@ module.exports.handler = async (event) => {
         // Si no se proporciona un uuid, devolver todos los proyectos
         return {
           statusCode: 200,
-          body: JSON.stringify(data.projects),
+          body: JSON.stringify(data),
         };
       }
     }
