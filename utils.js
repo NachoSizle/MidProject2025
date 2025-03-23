@@ -14,7 +14,7 @@ export const bindCloseDialog = () => {
  * Bind the menu toggle button to open/close the menu
  */
 export const bindMenuToggle = () => {
-  const header = document.querySelector("body > header");
+  const header = document.querySelector("body > header > .sub-header");
   const nav = header.querySelector("nav");
   const menuToggle = document.querySelector(".menu-toggle");
 
@@ -70,7 +70,7 @@ export const showAllProjects = (projectsContainer, projects) => {
           <h4>${project.name}</h4>
           <p>${project.description}</p>
         </div>
-        <a href="/pages/project-detail/projectDetail.html?projectId=${project.uuid}">Learn More</a>
+        <a href="/pages/project-detail/projectDetail.html?projectId=${project.uuid}" class="headline-regular">Learn More</a>
       </div>
     </article>
   `
