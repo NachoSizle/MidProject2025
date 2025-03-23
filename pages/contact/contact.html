@@ -3,10 +3,115 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Contact us!</title>
+    <link rel="stylesheet" href="/styles/main.css" />
     <link rel="stylesheet" href="./contact.css" />
+    <script type="module" src="./contact.js" defer></script>
   </head>
   <body>
-    <h1>Contact Page!</h1>
+    <header>
+      <a href="/index.html">
+        <img src="/assets/logos/circle.svg" alt="logo of the website" />
+      </a>
+
+      <nav>
+        <ul>
+          <li>
+            <a href="/index.html" class="headline-medium selected">Home</a>
+          </li>
+          <li>
+            <a href="/index.html#projects" class="headline-medium">Projects</a>
+          </li>
+          <li>
+            <a href="/index.html#services" class="headline-medium">Services</a>
+          </li>
+        </ul>
+
+        <a href="/pages/contact/contact.html" class="btn headline-medium">Contact Us</a>
+      </nav>
+
+      <a href="/pages/contact/contact.html" class="btn headline-medium">Contact Us</a>
+
+      <div class="menu-toggle">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </header>
+
+    <main>
+      <h1>Contact Us</h1>
+      <form>
+        <label for="name" class="body-regular">
+          Full Name *
+          <input type="text" id="name" name="name" class="input" placeholder="Enter your full name" required/>
+        </label>
+
+
+        <fieldset>
+          <label for="email" class="body-regular">
+            Email
+            <input type="email" id="email" name="email" class="input" placeholder="Enter your email address" />
+          </label>
+
+          <label for="phone" class="body-regular">
+            Phone
+            <input type="tel" id="phone" name="phone" class="input" placeholder="Enter your phone number" />
+          </label>
+          
+        </fieldset>
+
+        <label for="message" class="body-regular">
+          Message
+          <textarea id="message" name="message" class="input" placeholder="Write your message here..."></textarea>
+        </label>
+        
+
+        <button class="btn headline-medium">Submit</button>
+      </form>
+    </main>
+
+    <footer>
+      <section class="footer-content">
+        <img src="/assets/logos/circle.svg" alt="Circle Logo" />
+        <p class="headline-regular">
+          2972 Westheimer Rd. Santa Ana, Illinois 85486
+        </p>
+      </section>
+      <nav>
+        <ul>
+          <li>
+            <a href="/pages/team/team.html" class="headline-regular">Team</a>
+          </li>
+          <li>
+            <a href="/index.html#services" class="headline-regular">Services</a>
+          </li>
+          <li>
+            <a href="/pages/contact/pages/contact/contact.html" class="headline-regular"
+              >About Us</a
+            >
+          </li>
+          <li>
+            <a href="/pages/press/press.html" class="headline-regular">Press</a>
+          </li>
+          <li>
+            <a href="/index.html#projects" class="headline-regular">Projects</a>
+          </li>
+          <li>
+            <a href="/pages/privacy/privacy.html" class="headline-regular"
+              >Privacy Policy</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </footer>
+
+    <dialog>
+      <div class="dialog-content">
+        <p class="headline-regular">Thank you for contacting us!</p>
+        <p class="headline-regular"></p>
+        <button class="btn close headline-medium">Close</button>
+      </div>
+    </dialog>
   </body>
 </html>

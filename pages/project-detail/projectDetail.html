@@ -3,11 +3,121 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="./styles/main.css" />
+    <title>Project Detail</title>
+    <link rel="stylesheet" href="/styles/main.css" />
     <link rel="stylesheet" href="./projectDetail.css" />
+    <script type="module" src="./projectDetail.js" defer></script>
   </head>
   <body>
-    <h1>Project Detail!</h1>
+    <header>
+      <a href="/index.html">
+        <img src="/assets/logos/circle.svg" alt="logo of the website" />
+      </a>
+
+      <nav>
+        <ul>
+          <li>
+            <a href="/index.html" class="headline-medium selected">Home</a>
+          </li>
+          <li>
+            <a href="/index.html#projects" class="headline-medium">Projects</a>
+          </li>
+          <li>
+            <a href="/index.html#services" class="headline-medium">Services</a>
+          </li>
+        </ul>
+
+        <a href="/pages/contact/contact.html" class="btn headline-medium">Contact Us</a>
+      </nav>
+
+      <a href="/pages/contact/contact.html" class="btn headline-medium">Contact Us</a>
+
+      <div class="menu-toggle">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </header>
+
+    <main>
+      <section id="project-detail">
+        <h1></h1>
+        <section class="project-category">
+          <p class="body-bold"></p>
+          <p class="body-regular"></p>
+        </section>
+
+        <section class="project-image">
+          <img src="" alt="project image" />
+          <img src="" alt="project image" />
+        </section>
+
+        <p class="project-content body-regular"></p>
+      </section>
+
+      <section id="projects">
+        <h3>Recent Projects</h3>
+        <section class="projects-container-list">
+          <div class="projects-list"></div>
+        </section>
+      </section>
+
+      <section id="newsletter">
+        <h3>Do you have a questions?</h3>
+        <span>Let us help you!</span>
+        <form class="subscribe-form">
+          <input
+            class="headline-regular"
+            type="email"
+            placeholder="Enter your email"
+            required
+          />
+          <button class="btn headline-medium">Subscribe</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <section class="footer-content">
+        <img src="/assets/logos/circle.svg" alt="Circle Logo" />
+        <p class="headline-regular">
+          2972 Westheimer Rd. Santa Ana, Illinois 85486
+        </p>
+      </section>
+      <nav>
+        <ul>
+          <li>
+            <a href="/pages/team/team.html" class="headline-regular">Team</a>
+          </li>
+          <li>
+            <a href="/index.html#services" class="headline-regular">Services</a>
+          </li>
+          <li>
+            <a href="/pages/contact/pages/contact/contact.html" class="headline-regular"
+              >About Us</a
+            >
+          </li>
+          <li>
+            <a href="/pages/press/press.html" class="headline-regular">Press</a>
+          </li>
+          <li>
+            <a href="/index.html#projects" class="headline-regular">Projects</a>
+          </li>
+          <li>
+            <a href="/pages/privacy/privacy.html" class="headline-regular"
+              >Privacy Policy</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </footer>
+
+    <dialog>
+      <div class="dialog-content">
+        <p class="headline-regular">Thank you for contacting us!</p>
+        <p class="headline-regular"></p>
+        <button class="btn close headline-medium">Close</button>
+      </div>
+    </dialog>
   </body>
 </html>

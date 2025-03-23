@@ -1,3 +1,72 @@
-:host {
-  
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap');
+
+:root {
+  * {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  /* 
+    Bold: 700
+    Medium: 500
+    Regular: 400
+  */
+  h1 {
+    font-weight: 700;
+    font-size: 60px;
+    letter-spacing: 0;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 50px;
+    letter-spacing: 0;
+  }
+
+  h3 {
+    font-weight: 700;
+    font-size: 40px;
+    letter-spacing: 0;
+  }
+
+  h4 {
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: 0;
+  }
+
+  .body-bold {
+    font-weight: 500;
+    font-size: 24px;
+    letter-spacing: 0;
+  }
+
+  .body-regular {
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: 0;
+  }
+
+  .headline-regular {
+    font-weight: 400;
+    font-size: 17px;
+    letter-spacing: 0;
+  }
+
+  .headline-medium {
+    font-weight: 500;
+    font-size: 17px;
+    letter-spacing: 0;
+  }
+
+  .caption-regular {
+    font-weight: 400;
+    font-size: 15px;
+    letter-spacing: 0;
+  }
+
+  .caption-small {
+    font-weight: 400;
+    font-size: 13px;
+    letter-spacing: 0;
+  }
 }
